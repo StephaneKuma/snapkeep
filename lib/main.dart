@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:snapkeep/src/core/constants/themes.dart';
 import 'package:snapkeep/src/core/locator/index.dart';
 
 import 'src/core/router/index.dart';
@@ -19,10 +21,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+      debugShowCheckedModeBanner: false,
+      title: 'Snapkeep',
+      theme: lightTheme.copyWith(
+        textTheme: GoogleFonts.interTightTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
       routerConfig: router.config(),
     );
