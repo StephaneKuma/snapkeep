@@ -54,7 +54,22 @@ final class StatusBloc extends Bloc<StatusEvent, StatusState> {
   void _onStoreStatus(
     StoreStatusVideos event,
     Emitter<StatusState> emit,
-  ) {}
+  ) async {
+    final result = await _storeStatus.call(
+      params: StoreStatusParams(
+        path: event.path,
+      ),
+    );
+
+    result.fold(
+      (Failure failure) => emit(
+        const StatusLoadFailure(message: 'Something went wrong'),
+      ),
+      (bool result) => emit(
+        StatusStored(success: result),
+      ),
+    );
+  }
 
   void _onDestroyStatus(
     DestroyStatusVideos event,

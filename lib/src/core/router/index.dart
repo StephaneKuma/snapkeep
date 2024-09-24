@@ -1,4 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:snapkeep/src/whatsapp/domain/entities/status.dart';
 import 'package:snapkeep/src/whatsapp/presentation/pages/index.dart';
 
 part 'index.gr.dart';
@@ -34,6 +37,11 @@ class AppRouter extends RootStackRouter {
               durationInMilliseconds: 500,
             ),
           ],
+        ),
+        CustomRoute(
+          page: ImageViewerRoute.page,
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 500,
         ),
       ];
 }

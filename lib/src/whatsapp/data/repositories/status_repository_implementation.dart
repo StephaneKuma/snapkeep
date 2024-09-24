@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:snapkeep/src/core/constants/extensions.dart';
 import 'package:snapkeep/src/core/constants/whatsapp.dart';
@@ -14,7 +15,8 @@ import 'package:snapkeep/src/whatsapp/domain/repositories/status_repository.dart
 final class StatusRepositoryImplementation implements StatusRepository {
   Future<bool> _checkPermission() async {
     final storagePermission = await Permission.storage.request();
-    final externalStoragePermission = await Permission.manageExternalStorage.request();
+    final externalStoragePermission =
+        await Permission.manageExternalStorage.request();
 
     return storagePermission.isGranted && externalStoragePermission.isGranted;
   }
@@ -40,8 +42,42 @@ final class StatusRepositoryImplementation implements StatusRepository {
   }
 
   @override
-  FutureResult<bool> store({required String path}) {
-    throw UnimplementedError();
+  FutureResult<bool> store({required String path}) async {
+    try {
+      final PermissionStatus status = await Permission.storage.request();
+
+      if (status.isGranted) {
+        final Directory directory =
+            Directory('/storage/emulated/0/MyAppImages');
+
+        if (!(await directory.exists())) {
+          await directory.create(recursive: true);
+        }
+
+        final file = File(path);
+
+        if (await file.exists()) {
+          final String newFilePath =
+              '${directory.path}/${file.uri.pathSegments.last}';
+
+          await file.copy(newFilePath);
+
+          return const Right(true);
+        } else {
+          return const Left(
+            StorageFailure(message: 'Fichier source non trouvé.'),
+          );
+        }
+      }
+
+      return const Left(
+        PermissionFailure(message: 'Permission d\'écriture refusée.'),
+      );
+    } catch (e) {
+      return Left(
+        StorageFailure(message: e.toString()),
+      );
+    }
   }
 
   @override

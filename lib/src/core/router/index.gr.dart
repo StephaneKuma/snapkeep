@@ -10,6 +10,52 @@
 part of 'index.dart';
 
 /// generated route for
+/// [ImageViewerPage]
+class ImageViewerRoute extends PageRouteInfo<ImageViewerRouteArgs> {
+  ImageViewerRoute({
+    Key? key,
+    required Status status,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ImageViewerRoute.name,
+          args: ImageViewerRouteArgs(
+            key: key,
+            status: status,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ImageViewerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ImageViewerRouteArgs>();
+      return ImageViewerPage(
+        key: args.key,
+        status: args.status,
+      );
+    },
+  );
+}
+
+class ImageViewerRouteArgs {
+  const ImageViewerRouteArgs({
+    this.key,
+    required this.status,
+  });
+
+  final Key? key;
+
+  final Status status;
+
+  @override
+  String toString() {
+    return 'ImageViewerRouteArgs{key: $key, status: $status}';
+  }
+}
+
+/// generated route for
 /// [ImagesPage]
 class ImagesRoute extends PageRouteInfo<void> {
   const ImagesRoute({List<PageRouteInfo>? children})

@@ -35,3 +35,9 @@ final class LoadFailure extends Failure {
     required super.message,
   });
 }
+
+final class StorageFailure extends Failure {
+  const StorageFailure({
+    required super.message,
+  });
+}

@@ -28,3 +28,11 @@ final class StatusLoadFailure extends StatusState {
   @override
   List<Object> get props => [message];
 }
+final class StatusStored extends StatusState {
+  final bool success;
+
+  const StatusStored({required this.success});
+
+  @override
+  List<Object> get props => [success];
+}
