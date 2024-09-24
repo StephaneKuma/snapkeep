@@ -25,9 +25,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => locator<StatusBloc>()
-            ..add(FetchStatusImages())
-            ..add(FetchStatusVideos()),
+          create: (_) => locator<StatusBloc>()..add(FetchStatus()),
         ),
       ],
       child: MaterialApp.router(

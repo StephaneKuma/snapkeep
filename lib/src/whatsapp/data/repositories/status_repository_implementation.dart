@@ -13,9 +13,10 @@ import 'package:snapkeep/src/whatsapp/domain/repositories/status_repository.dart
 @LazySingleton(as: StatusRepository)
 final class StatusRepositoryImplementation implements StatusRepository {
   Future<bool> _checkPermission() async {
-    final status = await Permission.storage.request();
+    final storagePermission = await Permission.storage.request();
+    final externalStoragePermission = await Permission.manageExternalStorage.request();
 
-    return status.isGranted;
+    return storagePermission.isGranted && externalStoragePermission.isGranted;
   }
 
   @override

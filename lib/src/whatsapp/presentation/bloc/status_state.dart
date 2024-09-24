@@ -11,22 +11,13 @@ final class StatusInitial extends StatusState {}
 
 final class LoadingStatus extends StatusState {}
 
-final class StatusImagesLoaded extends StatusState {
-  final List<Status> images;
+final class StatusLoaded extends StatusState {
+  final List<Status> statuses;
 
-  const StatusImagesLoaded({required this.images});
-
-  @override
-  List<Object> get props => [images];
-}
-
-final class StatusVideosLoaded extends StatusState {
-  final List<Status> videos;
-
-  const StatusVideosLoaded({required this.videos});
+  const StatusLoaded({required this.statuses});
 
   @override
-  List<Object> get props => [videos];
+  List<Object> get props => [statuses];
 }
 
 final class StatusLoadFailure extends StatusState {

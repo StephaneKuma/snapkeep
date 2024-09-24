@@ -30,14 +30,13 @@ final class StatusBloc extends Bloc<StatusEvent, StatusState> {
         super(StatusInitial()) {
     on<StatusEvent>((_, emit) => emit(LoadingStatus()));
 
-    on<FetchStatusImages>(_onLoadStatusImages);
-    on<FetchStatusVideos>(_onLoadStatusVideos);
+    on<FetchStatus>(_onLoadStatusImages);
     on<StoreStatusVideos>(_onStoreStatus);
     on<DestroyStatusVideos>(_onDestroyStatus);
   }
 
   void _onLoadStatusImages(
-    FetchStatusImages event,
+    FetchStatus event,
     Emitter<StatusState> emit,
   ) async {
     final result = await _loadStatusImages.call();
@@ -46,24 +45,8 @@ final class StatusBloc extends Bloc<StatusEvent, StatusState> {
       (Failure failure) => emit(
         const StatusLoadFailure(message: 'Something went wrong'),
       ),
-      (List<Status> images) => emit(
-        StatusImagesLoaded(images: images),
-      ),
-    );
-  }
-
-  void _onLoadStatusVideos(
-    FetchStatusVideos event,
-    Emitter<StatusState> emit,
-  ) async {
-    final result = await _loadStatusVideos.call();
-
-    result.fold(
-      (Failure failure) => emit(
-        const StatusLoadFailure(message: 'Something went wrong'),
-      ),
-      (List<Status> videos) => emit(
-        StatusVideosLoaded(videos: videos),
+      (List<Status> statuses) => emit(
+        StatusLoaded(statuses: statuses),
       ),
     );
   }

@@ -7,9 +7,7 @@ sealed class StatusEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class FetchStatusImages extends StatusEvent {}
-
-final class FetchStatusVideos extends StatusEvent {}
+final class FetchStatus extends StatusEvent {}
 
 final class StoreStatusVideos extends StatusEvent {
   final String path;
