@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:snapkeep/src/core/constants/themes.dart';
 import 'package:snapkeep/src/core/locator/index.dart';
+import 'package:snapkeep/src/whatsapp/presentation/cubit/status_cubit.dart';
 
 import 'src/core/router/index.dart';
 import 'src/whatsapp/presentation/bloc/status_bloc.dart';
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (_) => locator<StatusBloc>()..add(FetchStatus()),
+        ),
+        BlocProvider(
+          create: (_) => locator<StatusCubit>(),
         ),
       ],
       child: MaterialApp.router(

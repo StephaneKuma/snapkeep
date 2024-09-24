@@ -15,8 +15,6 @@ part 'status_state.dart';
 final class StatusBloc extends Bloc<StatusEvent, StatusState> {
   final LoadStatusImages _loadStatusImages;
   final LoadStatusVideos _loadStatusVideos;
-  final StoreStatus _storeStatus;
-  final DestroyStatus _destroyStatus;
 
   StatusBloc({
     required LoadStatusImages loadStatusImages,
@@ -25,14 +23,10 @@ final class StatusBloc extends Bloc<StatusEvent, StatusState> {
     required DestroyStatus destroyStatus,
   })  : _loadStatusImages = loadStatusImages,
         _loadStatusVideos = loadStatusVideos,
-        _storeStatus = storeStatus,
-        _destroyStatus = destroyStatus,
         super(StatusInitial()) {
     on<StatusEvent>((_, emit) => emit(LoadingStatus()));
 
     on<FetchStatus>(_onLoadStatusImages);
-    on<StoreStatusVideos>(_onStoreStatus);
-    on<DestroyStatusVideos>(_onDestroyStatus);
   }
 
   void _onLoadStatusImages(
@@ -43,36 +37,11 @@ final class StatusBloc extends Bloc<StatusEvent, StatusState> {
 
     result.fold(
       (Failure failure) => emit(
-        const StatusLoadFailure(message: 'Something went wrong'),
+        StatusLoadFailure(message: failure.message),
       ),
       (List<Status> statuses) => emit(
         StatusLoaded(statuses: statuses),
       ),
     );
   }
-
-  void _onStoreStatus(
-    StoreStatusVideos event,
-    Emitter<StatusState> emit,
-  ) async {
-    final result = await _storeStatus.call(
-      params: StoreStatusParams(
-        path: event.path,
-      ),
-    );
-
-    result.fold(
-      (Failure failure) => emit(
-        const StatusLoadFailure(message: 'Something went wrong'),
-      ),
-      (bool result) => emit(
-        StatusStored(success: result),
-      ),
-    );
-  }
-
-  void _onDestroyStatus(
-    DestroyStatusVideos event,
-    Emitter<StatusState> emit,
-  ) {}
 }

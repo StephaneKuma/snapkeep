@@ -5,13 +5,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:popover/popover.dart';
-import 'package:snapkeep/main.dart';
 import 'package:snapkeep/src/core/constants/colors.dart';
 
 import 'package:snapkeep/src/whatsapp/domain/entities/status.dart';
-import 'package:snapkeep/src/whatsapp/presentation/bloc/status_bloc.dart';
-import 'package:snapkeep/src/whatsapp/presentation/widgets/menu_items.dart';
+import 'package:snapkeep/src/whatsapp/presentation/cubit/status_cubit.dart';
 
 @RoutePage()
 class ImageViewerPage extends StatefulWidget {
@@ -29,6 +26,8 @@ class ImageViewerPage extends StatefulWidget {
 class _ImageViewerPageState extends State<ImageViewerPage> {
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<StatusCubit>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Snap Keep'),
@@ -40,7 +39,22 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
             ),
             onSelected: (value) {
               if (value == 'save') {
-              } else if (value == 'share') {}
+                cubit.store(status: widget.status);
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    backgroundColor: kPrimaryColor,
+                    content: Text(
+                      'Image saved',
+                      style: TextStyle(
+                        color: kWhiteColor,
+                      ),
+                    ),
+                  ),
+                );
+              } else if (value == 'share') {
+                cubit.share(status: widget.status);
+              }
             },
             itemBuilder: (context) {
               return const <PopupMenuEntry<String>>[
@@ -89,11 +103,15 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
                       leading: const FaIcon(FontAwesomeIcons.shareFromSquare),
                       title: const Text('Share'),
                       onTap: () {
+                        cubit.share(status: widget.status);
+
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Sharing...'),
                           ),
                         );
+
+                        context.router.maybePop();
                       },
                     ),
                     const Divider(),
@@ -101,9 +119,19 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
                       leading: const FaIcon(FontAwesomeIcons.download),
                       title: const Text('Save'),
                       onTap: () {
-                        context.read<StatusBloc>().add(
-                              StoreStatusVideos(path: widget.status.path),
-                            );
+                        cubit.store(status: widget.status);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: kPrimaryColor,
+                            content: Text(
+                              'Image saved',
+                              style: TextStyle(
+                                color: kWhiteColor,
+                              ),
+                            ),
+                          ),
+                        );
 
                         context.router.maybePop();
                       },

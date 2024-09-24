@@ -24,6 +24,8 @@ import 'package:snapkeep/src/whatsapp/domain/usecases/store_status.dart'
     as _i516;
 import 'package:snapkeep/src/whatsapp/presentation/bloc/status_bloc.dart'
     as _i194;
+import 'package:snapkeep/src/whatsapp/presentation/cubit/status_cubit.dart'
+    as _i335;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -36,6 +38,7 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    gh.lazySingleton<_i335.StatusCubit>(() => _i335.StatusCubit());
     gh.lazySingleton<_i206.StatusRepository>(
         () => _i747.StatusRepositoryImplementation());
     gh.lazySingleton<_i1045.DestroyStatus>(

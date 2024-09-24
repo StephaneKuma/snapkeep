@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+
 import 'package:snapkeep/src/core/constants/extensions.dart';
-import 'package:snapkeep/src/core/constants/whatsapp.dart';
+import 'package:snapkeep/src/core/constants/paths.dart';
 import 'package:snapkeep/src/core/errors/failure.dart';
 import 'package:snapkeep/src/core/types/index.dart';
 import 'package:snapkeep/src/whatsapp/data/models/status_model.dart';
