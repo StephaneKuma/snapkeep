@@ -24,6 +24,12 @@ final class CacheFailure extends Failure {
   });
 }
 
+final class PermissionFailure extends Failure {
+  const PermissionFailure({
+    required super.message,
+  });
+}
+
 final class LoadFailure extends Failure {
   const LoadFailure({
     required super.message,

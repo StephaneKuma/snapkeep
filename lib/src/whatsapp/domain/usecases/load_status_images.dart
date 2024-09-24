@@ -5,13 +5,13 @@ import 'package:snapkeep/src/whatsapp/domain/entities/status.dart';
 import 'package:snapkeep/src/whatsapp/domain/repositories/status_repository.dart';
 
 @lazySingleton
-class LoadStatusImages implements UseCase<Stream<List<Status>>, NoParams> {
+class LoadStatusImages implements UseCase<List<Status>, NoParams> {
   final StatusRepository repository;
 
   LoadStatusImages({required this.repository});
 
   @override
-  FutureResult<Stream<List<Status>>> call({required NoParams params}) async {
+  FutureResult<List<Status>> call({NoParams? params}) async {
     return await repository.images();
   }
 }
