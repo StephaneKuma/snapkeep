@@ -13,6 +13,27 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           page: StatusRoute.page,
           initial: true,
+          children: <AutoRoute>[
+            RedirectRoute(
+              path: '',
+              redirectTo: ImagesRoute.name,
+            ),
+            CustomRoute(
+              page: ImagesRoute.page,
+              transitionsBuilder: TransitionsBuilders.fadeIn,
+              durationInMilliseconds: 500,
+            ),
+            CustomRoute(
+              page: VideosRoute.page,
+              transitionsBuilder: TransitionsBuilders.fadeIn,
+              durationInMilliseconds: 500,
+            ),
+            CustomRoute(
+              page: SavedRoute.page,
+              transitionsBuilder: TransitionsBuilders.fadeIn,
+              durationInMilliseconds: 500,
+            ),
+          ],
         ),
       ];
 }

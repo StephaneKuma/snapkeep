@@ -25,6 +25,7 @@ dependencies:
   video_player: ^2.9.1
   chewie: ^1.8.5
   share_plus: ^10.0.2
+  font_awesome_flutter: ^10.7.0
 
 dev_dependencies:
   flutter_test:
