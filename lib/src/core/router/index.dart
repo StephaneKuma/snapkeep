@@ -43,5 +43,10 @@ class AppRouter extends RootStackRouter {
           transitionsBuilder: TransitionsBuilders.fadeIn,
           durationInMilliseconds: 500,
         ),
+        CustomRoute(
+          page: VideoViewerRoute.page,
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 500,
+        ),
       ];
 }

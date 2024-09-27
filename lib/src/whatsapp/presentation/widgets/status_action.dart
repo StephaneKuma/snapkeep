@@ -11,9 +11,11 @@ class StatusAction extends StatelessWidget {
   const StatusAction({
     super.key,
     required this.status,
+    this.isStored = false,
   });
 
   final Status status;
+  final bool isStored;
 
   @override
   Widget build(BuildContext context) {
@@ -33,41 +35,51 @@ class StatusAction extends StatelessWidget {
                 bottomRight: Radius.circular(8),
               ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                IconButton(
-                  onPressed: () {
-                    cubit.store(status: status);
+            child: isStored
+                ? IconButton(
+                    onPressed: () {
+                      cubit.share(status: status);
+                    },
+                    icon: const FaIcon(
+                      FontAwesomeIcons.shareFromSquare,
+                      color: kWhiteColor,
+                    ),
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      IconButton(
+                        onPressed: () {
+                          cubit.store(status: status);
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        backgroundColor: kPrimaryColor,
-                        content: Text(
-                          'Image saved',
-                          style: TextStyle(
-                            color: kWhiteColor,
-                          ),
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: kPrimaryColor,
+                              content: Text(
+                                'Image saved',
+                                style: TextStyle(
+                                  color: kWhiteColor,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                        icon: const FaIcon(
+                          FontAwesomeIcons.download,
+                          color: kWhiteColor,
                         ),
                       ),
-                    );
-                  },
-                  icon: const FaIcon(
-                    FontAwesomeIcons.download,
-                    color: kWhiteColor,
+                      IconButton(
+                        onPressed: () {
+                          cubit.share(status: status);
+                        },
+                        icon: const FaIcon(
+                          FontAwesomeIcons.shareFromSquare,
+                          color: kWhiteColor,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    cubit.share(status: status);
-                  },
-                  icon: const FaIcon(
-                    FontAwesomeIcons.shareFromSquare,
-                    color: kWhiteColor,
-                  ),
-                ),
-              ],
-            ),
           ),
         ),
       ],

@@ -113,6 +113,52 @@ class StatusRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [VideoViewerPage]
+class VideoViewerRoute extends PageRouteInfo<VideoViewerRouteArgs> {
+  VideoViewerRoute({
+    Key? key,
+    required Status status,
+    List<PageRouteInfo>? children,
+  }) : super(
+          VideoViewerRoute.name,
+          args: VideoViewerRouteArgs(
+            key: key,
+            status: status,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'VideoViewerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<VideoViewerRouteArgs>();
+      return VideoViewerPage(
+        key: args.key,
+        status: args.status,
+      );
+    },
+  );
+}
+
+class VideoViewerRouteArgs {
+  const VideoViewerRouteArgs({
+    this.key,
+    required this.status,
+  });
+
+  final Key? key;
+
+  final Status status;
+
+  @override
+  String toString() {
+    return 'VideoViewerRouteArgs{key: $key, status: $status}';
+  }
+}
+
+/// generated route for
 /// [VideosPage]
 class VideosRoute extends PageRouteInfo<void> {
   const VideosRoute({List<PageRouteInfo>? children})

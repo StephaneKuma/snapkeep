@@ -9,10 +9,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:snapkeep/src/core/constants/colors.dart';
 import 'package:snapkeep/src/whatsapp/domain/entities/status.dart';
 import 'package:snapkeep/src/whatsapp/presentation/cubit/status_cubit.dart';
+import 'package:chewie/chewie.dart';
+import 'package:video_player/video_player.dart';
 
 @RoutePage()
-class ImageViewerPage extends StatefulWidget {
-  const ImageViewerPage({
+class VideoViewerPage extends StatefulWidget {
+  const VideoViewerPage({
     super.key,
     required this.status,
   });
@@ -20,10 +22,12 @@ class ImageViewerPage extends StatefulWidget {
   final Status status;
 
   @override
-  State<ImageViewerPage> createState() => _ImageViewerPageState();
+  State<VideoViewerPage> createState() => _VideoViewerPageState();
 }
 
-class _ImageViewerPageState extends State<ImageViewerPage> {
+class _VideoViewerPageState extends State<VideoViewerPage> {
+  late ChewieController controller;
+
   @override
   void initState() {
     super.initState();
@@ -42,6 +46,26 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
         ),
       );
     });
+
+    controller = ChewieController(
+      videoPlayerController: VideoPlayerController.file(
+        File(widget.status.path),
+      ),
+      autoInitialize: true,
+      autoPlay: true,
+      looping: true,
+      // aspectRatio: 5 / 6,
+      errorBuilder: (context, errorMessage) => Center(
+        child: Text(errorMessage),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.pause();
+    controller.dispose();
   }
 
   @override
@@ -125,12 +149,6 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
                       onTap: () {
                         cubit.share(status: widget.status);
 
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Sharing...'),
-                          ),
-                        );
-
                         context.router.maybePop();
                       },
                     ),
@@ -163,12 +181,8 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
             ),
           );
         },
-        child: InteractiveViewer(
-          child: Center(
-            child: Image.file(
-              File(widget.status.path),
-            ),
-          ),
+        child: Chewie(
+          controller: controller,
         ),
       ),
     );

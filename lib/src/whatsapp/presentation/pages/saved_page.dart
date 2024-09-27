@@ -51,8 +51,14 @@ class SavedPage extends StatelessWidget {
                 final status = state.statuses[index];
 
                 return status.isVideo
-                    ? StatusVideo(status: status)
-                    : StatusImage(status: status);
+                    ? StatusVideo(
+                        status: status,
+                        isStored: true,
+                      )
+                    : StatusImage(
+                        status: status,
+                        isStored: true,
+                      );
               },
             );
           }

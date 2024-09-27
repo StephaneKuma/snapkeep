@@ -12,9 +12,11 @@ class StatusImage extends StatelessWidget {
   const StatusImage({
     super.key,
     required this.status,
+    this.isStored = false,
   });
 
   final Status status;
+  final bool isStored;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,10 @@ class StatusImage extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: StatusAction(status: status),
+        child: StatusAction(
+          status: status,
+          isStored: isStored,
+        ),
       ),
     );
   }
