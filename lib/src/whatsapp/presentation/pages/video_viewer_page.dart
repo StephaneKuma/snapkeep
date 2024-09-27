@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:snapkeep/src/core/constants/colors.dart';
@@ -34,12 +35,13 @@ class _VideoViewerPageState extends State<VideoViewerPage> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           backgroundColor: kDarkColor,
           content: Text(
             'Double tap to save or share',
             style: TextStyle(
               color: kWhiteColor,
+              fontSize: 14.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -73,24 +75,31 @@ class _VideoViewerPageState extends State<VideoViewerPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Snap Keep'),
+        title: Text(
+          'Snap Keep',
+          style: TextStyle(
+            fontSize: 22.sp,
+          ),
+        ),
         actions: <Widget>[
           PopupMenuButton<String>(
-            icon: const FaIcon(
+            icon: FaIcon(
               FontAwesomeIcons.ellipsisVertical,
               color: Colors.white,
+              size: 25.sp,
             ),
             onSelected: (value) {
               if (value == 'save') {
                 cubit.store(status: widget.status);
 
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
+                  SnackBar(
                     backgroundColor: kPrimaryColor,
                     content: Text(
                       'Image saved',
                       style: TextStyle(
                         color: kWhiteColor,
+                        fontSize: 14.sp,
                       ),
                     ),
                   ),
@@ -100,19 +109,35 @@ class _VideoViewerPageState extends State<VideoViewerPage> {
               }
             },
             itemBuilder: (context) {
-              return const <PopupMenuEntry<String>>[
+              return <PopupMenuEntry<String>>[
                 PopupMenuItem(
                   value: 'share',
                   child: ListTile(
-                    leading: FaIcon(FontAwesomeIcons.shareFromSquare),
-                    title: Text('Share'),
+                    leading: FaIcon(
+                      FontAwesomeIcons.shareFromSquare,
+                      size: 25.sp,
+                    ),
+                    title: Text(
+                      'Share',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                      ),
+                    ),
                   ),
                 ),
                 PopupMenuItem(
                   value: 'save',
                   child: ListTile(
-                    leading: FaIcon(FontAwesomeIcons.download),
-                    title: Text('Save'),
+                    leading: FaIcon(
+                      FontAwesomeIcons.download,
+                      size: 25.sp,
+                    ),
+                    title: Text(
+                      'Save',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                      ),
+                    ),
                   ),
                 ),
               ];
@@ -127,24 +152,32 @@ class _VideoViewerPageState extends State<VideoViewerPage> {
             showDragHandle: true,
             context: context,
             builder: (context) => Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: kWhiteColor,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(20.r),
+                  topRight: Radius.circular(20.r),
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8,
-                  horizontal: 30,
+                padding: EdgeInsets.symmetric(
+                  vertical: 8.h,
+                  horizontal: 30.w,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     ListTile(
-                      leading: const FaIcon(FontAwesomeIcons.shareFromSquare),
-                      title: const Text('Share'),
+                      leading: FaIcon(
+                        FontAwesomeIcons.shareFromSquare,
+                        size: 25.sp,
+                      ),
+                      title: Text(
+                        'Share',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                        ),
+                      ),
                       onTap: () {
                         cubit.share(status: widget.status);
 
@@ -153,18 +186,27 @@ class _VideoViewerPageState extends State<VideoViewerPage> {
                     ),
                     const Divider(),
                     ListTile(
-                      leading: const FaIcon(FontAwesomeIcons.download),
-                      title: const Text('Save'),
+                      leading: FaIcon(
+                        FontAwesomeIcons.download,
+                        size: 25.sp,
+                      ),
+                      title: Text(
+                        'Save',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                        ),
+                      ),
                       onTap: () {
                         cubit.store(status: widget.status);
 
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
+                          SnackBar(
                             backgroundColor: kPrimaryColor,
                             content: Text(
                               'Image saved',
                               style: TextStyle(
                                 color: kWhiteColor,
+                                fontSize: 14.sp,
                               ),
                             ),
                           ),
@@ -173,7 +215,7 @@ class _VideoViewerPageState extends State<VideoViewerPage> {
                         context.router.maybePop();
                       },
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20.h),
                   ],
                 ),
               ),

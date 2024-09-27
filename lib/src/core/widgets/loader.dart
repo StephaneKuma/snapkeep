@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:snapkeep/src/core/constants/colors.dart';
@@ -16,7 +17,7 @@ class _LoaderState extends State<Loader> {
     return Center(
       child: LoadingAnimationWidget.staggeredDotsWave(
         color: kPrimaryColor,
-        size: 40,
+        size: 40.sp,
       ),
     );
   }

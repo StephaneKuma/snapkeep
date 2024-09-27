@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:snapkeep/src/core/widgets/loader.dart';
 import 'package:snapkeep/src/whatsapp/presentation/bloc/status_bloc.dart';
@@ -20,7 +21,12 @@ class SavedPage extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: Colors.red,
-                content: Text(state.message),
+                content: Text(
+                  state.message,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                  ),
+                ),
               ),
             );
           }
@@ -38,8 +44,8 @@ class SavedPage extends StatelessWidget {
                 Image.asset('assets/images/errors/error.png'),
                 Text(
                   state.message,
-                  style: const TextStyle(
-                    fontSize: 20,
+                  style: TextStyle(
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.w300,
                   ),
                 ),
@@ -54,10 +60,10 @@ class SavedPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Image.asset('assets/images/errors/empty.png'),
-                  const Text(
+                  Text(
                     'No saved statuses found',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.w300,
                     ),
                   ),
@@ -65,12 +71,12 @@ class SavedPage extends StatelessWidget {
               );
             } else {
               return GridView.builder(
-                padding: const EdgeInsets.all(8),
+                padding: EdgeInsets.all(8.r),
                 physics: const BouncingScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10.sp,
+                  mainAxisSpacing: 10.sp,
                   childAspectRatio: 1,
                 ),
                 itemCount: state.statuses.length,

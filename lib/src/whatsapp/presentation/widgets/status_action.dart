@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:snapkeep/src/core/constants/colors.dart';
@@ -29,11 +30,11 @@ class StatusAction extends StatelessWidget {
           left: 0,
           right: 0,
           child: Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: Colors.black54,
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(8),
-                bottomRight: Radius.circular(8),
+                bottomLeft: Radius.circular(8.r),
+                bottomRight: Radius.circular(8.r),
               ),
             ),
             child: Row(
@@ -62,8 +63,9 @@ class StatusAction extends StatelessWidget {
                         backgroundColor: isStored ? Colors.red : kPrimaryColor,
                         content: Text(
                           message,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: kWhiteColor,
+                            fontSize: 14.sp,
                           ),
                         ),
                       ),
@@ -74,15 +76,17 @@ class StatusAction extends StatelessWidget {
                         ? FontAwesomeIcons.trash
                         : FontAwesomeIcons.download,
                     color: kWhiteColor,
+                    size: 25.sp,
                   ),
                 ),
                 IconButton(
                   onPressed: () {
                     cubit.share(status: status);
                   },
-                  icon: const FaIcon(
+                  icon: FaIcon(
                     FontAwesomeIcons.shareFromSquare,
                     color: kWhiteColor,
+                    size: 25.sp,
                   ),
                 ),
               ],

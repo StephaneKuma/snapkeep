@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:snapkeep/src/core/router/index.dart';
@@ -45,13 +46,13 @@ class StatusVideo extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                         boxShadow: <BoxShadow>[
                           BoxShadow(
                             color: Colors.black.withOpacity(0.2),
-                            spreadRadius: 2,
-                            blurRadius: 6,
-                            offset: const Offset(0, 3),
+                            spreadRadius: 2.r,
+                            blurRadius: 6.r,
+                            offset: Offset(0, 3.h),
                           ),
                         ],
                         image: DecorationImage(
@@ -66,11 +67,11 @@ class StatusVideo extends StatelessWidget {
                         isStored: isStored,
                       ),
                     ),
-                    const Center(
+                    Center(
                       child: FaIcon(
                         FontAwesomeIcons.play,
                         color: Colors.white,
-                        size: 35,
+                        size: 35.sp,
                       ),
                     ),
                   ],
