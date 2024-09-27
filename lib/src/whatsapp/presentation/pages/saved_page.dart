@@ -31,41 +31,67 @@ class SavedPage extends StatelessWidget {
           }
 
           if (state is StatusLoadFailure) {
-            return Center(
-              child: Text(state.message),
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Image.asset('assets/images/errors/error.png'),
+                Text(
+                  state.message,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ],
             );
           }
 
           if (state is StatusLoaded) {
-            return GridView.builder(
-              padding: const EdgeInsets.all(8),
-              physics: const BouncingScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: 1,
-              ),
-              itemCount: state.statuses.length,
-              itemBuilder: (context, index) {
-                final status = state.statuses[index];
+            if (state.statuses.isEmpty) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset('assets/images/errors/empty.png'),
+                  const Text(
+                    'No videos found',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return GridView.builder(
+                padding: const EdgeInsets.all(8),
+                physics: const BouncingScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 1,
+                ),
+                itemCount: state.statuses.length,
+                itemBuilder: (context, index) {
+                  final status = state.statuses[index];
 
-                return status.isVideo
-                    ? StatusVideo(
-                        status: status,
-                        isStored: true,
-                      )
-                    : StatusImage(
-                        status: status,
-                        isStored: true,
-                      );
-              },
-            );
+                  return status.isVideo
+                      ? StatusVideo(
+                          status: status,
+                          isStored: true,
+                        )
+                      : StatusImage(
+                          status: status,
+                          isStored: true,
+                        );
+                },
+              );
+            }
           }
 
-          return const Center(
-            child: Text('No Data'),
-          );
+          return Container();
         },
       ),
     );
