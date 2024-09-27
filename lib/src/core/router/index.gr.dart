@@ -15,12 +15,14 @@ class ImageViewerRoute extends PageRouteInfo<ImageViewerRouteArgs> {
   ImageViewerRoute({
     Key? key,
     required Status status,
+    bool isStored = false,
     List<PageRouteInfo>? children,
   }) : super(
           ImageViewerRoute.name,
           args: ImageViewerRouteArgs(
             key: key,
             status: status,
+            isStored: isStored,
           ),
           initialChildren: children,
         );
@@ -34,6 +36,7 @@ class ImageViewerRoute extends PageRouteInfo<ImageViewerRouteArgs> {
       return ImageViewerPage(
         key: args.key,
         status: args.status,
+        isStored: args.isStored,
       );
     },
   );
@@ -43,15 +46,18 @@ class ImageViewerRouteArgs {
   const ImageViewerRouteArgs({
     this.key,
     required this.status,
+    this.isStored = false,
   });
 
   final Key? key;
 
   final Status status;
 
+  final bool isStored;
+
   @override
   String toString() {
-    return 'ImageViewerRouteArgs{key: $key, status: $status}';
+    return 'ImageViewerRouteArgs{key: $key, status: $status, isStored: $isStored}';
   }
 }
 
@@ -118,12 +124,14 @@ class VideoViewerRoute extends PageRouteInfo<VideoViewerRouteArgs> {
   VideoViewerRoute({
     Key? key,
     required Status status,
+    bool isStored = false,
     List<PageRouteInfo>? children,
   }) : super(
           VideoViewerRoute.name,
           args: VideoViewerRouteArgs(
             key: key,
             status: status,
+            isStored: isStored,
           ),
           initialChildren: children,
         );
@@ -137,6 +145,7 @@ class VideoViewerRoute extends PageRouteInfo<VideoViewerRouteArgs> {
       return VideoViewerPage(
         key: args.key,
         status: args.status,
+        isStored: args.isStored,
       );
     },
   );
@@ -146,15 +155,18 @@ class VideoViewerRouteArgs {
   const VideoViewerRouteArgs({
     this.key,
     required this.status,
+    this.isStored = false,
   });
 
   final Key? key;
 
   final Status status;
 
+  final bool isStored;
+
   @override
   String toString() {
-    return 'VideoViewerRouteArgs{key: $key, status: $status}';
+    return 'VideoViewerRouteArgs{key: $key, status: $status, isStored: $isStored}';
   }
 }
 

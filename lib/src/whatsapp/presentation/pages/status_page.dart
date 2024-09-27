@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:snapkeep/src/core/router/index.dart';
+import 'package:snapkeep/src/core/widgets/app_drawer.dart';
 import 'package:snapkeep/src/core/widgets/tab_item.dart';
 import 'package:snapkeep/src/whatsapp/presentation/bloc/status_bloc.dart';
 
@@ -66,9 +67,11 @@ class StatusPage extends StatelessWidget {
               ],
             ),
           ),
+          drawer: const AppDrawer(),
           body: child,
         );
       },
     );
   }
 }
+

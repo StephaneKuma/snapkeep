@@ -18,16 +18,19 @@ class VideoViewerPage extends StatefulWidget {
   const VideoViewerPage({
     super.key,
     required this.status,
+    this.isStored = false,
   });
 
   final Status status;
+  final bool isStored;
 
   @override
   State<VideoViewerPage> createState() => _VideoViewerPageState();
 }
 
 class _VideoViewerPageState extends State<VideoViewerPage> {
-  late ChewieController controller;
+  late VideoPlayerController videoPlayerController;
+  late ChewieController chewieController;
 
   @override
   void initState() {
@@ -49,10 +52,12 @@ class _VideoViewerPageState extends State<VideoViewerPage> {
       );
     });
 
-    controller = ChewieController(
-      videoPlayerController: VideoPlayerController.file(
-        File(widget.status.path),
-      ),
+    videoPlayerController = VideoPlayerController.file(
+      File(widget.status.path),
+    );
+    videoPlayerController.initialize();
+    chewieController = ChewieController(
+      videoPlayerController: videoPlayerController,
       autoInitialize: true,
       autoPlay: true,
       looping: true,
@@ -64,9 +69,11 @@ class _VideoViewerPageState extends State<VideoViewerPage> {
 
   @override
   void dispose() {
+    // videoPlayerController.pause();
+    videoPlayerController.dispose();
+    // chewieController.pause();
+    chewieController.dispose();
     super.dispose();
-    controller.pause();
-    controller.dispose();
   }
 
   @override
@@ -223,7 +230,7 @@ class _VideoViewerPageState extends State<VideoViewerPage> {
           );
         },
         child: Chewie(
-          controller: controller,
+          controller: chewieController,
         ),
       ),
     );

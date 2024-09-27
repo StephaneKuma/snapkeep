@@ -30,7 +30,10 @@ class StatusVideo extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context.router.push(
-          VideoViewerRoute(status: status),
+          VideoViewerRoute(
+            status: status,
+            isStored: isStored,
+          ),
         );
       },
       child: FutureBuilder<String>(
@@ -41,40 +44,43 @@ class StatusVideo extends StatelessWidget {
           }
 
           return snapshot.hasData && snapshot.data != null
-              ? Stack(
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8.r),
-                        boxShadow: <BoxShadow>[
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            spreadRadius: 2.r,
-                            blurRadius: 6.r,
-                            offset: Offset(0, 3.h),
+              ? Hero(
+                  tag: isStored ? 'saved-video-${status.path}' : 'video-${status.path}',
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8.r),
+                          boxShadow: <BoxShadow>[
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 2.r,
+                              blurRadius: 6.r,
+                              offset: Offset(0, 3.h),
+                            ),
+                          ],
+                          image: DecorationImage(
+                            image: FileImage(
+                              File(snapshot.data!),
+                            ),
+                            fit: BoxFit.cover,
                           ),
-                        ],
-                        image: DecorationImage(
-                          image: FileImage(
-                            File(snapshot.data!),
-                          ),
-                          fit: BoxFit.cover,
+                        ),
+                        child: StatusAction(
+                          status: status,
+                          isStored: isStored,
                         ),
                       ),
-                      child: StatusAction(
-                        status: status,
-                        isStored: isStored,
+                      Center(
+                        child: FaIcon(
+                          FontAwesomeIcons.play,
+                          color: Colors.white,
+                          size: 35.sp,
+                        ),
                       ),
-                    ),
-                    Center(
-                      child: FaIcon(
-                        FontAwesomeIcons.play,
-                        color: Colors.white,
-                        size: 35.sp,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 )
               : const Loader();
         },

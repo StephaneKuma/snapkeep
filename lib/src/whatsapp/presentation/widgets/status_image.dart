@@ -24,31 +24,37 @@ class StatusImage extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context.router.push(
-          ImageViewerRoute(status: status),
+          ImageViewerRoute(
+            status: status,
+            isStored: isStored,
+          ),
         );
       },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8.r),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              spreadRadius: 2.r,
-              blurRadius: 6.r,
-              offset: Offset(0, 3.h),
+      child: Hero(
+        tag: isStored ? 'saved-${status.path}' : status.path,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.r),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                spreadRadius: 2.r,
+                blurRadius: 6.r,
+                offset: Offset(0, 3.h),
+              ),
+            ],
+            image: DecorationImage(
+              image: FileImage(
+                File(status.path),
+              ),
+              fit: BoxFit.cover,
             ),
-          ],
-          image: DecorationImage(
-            image: FileImage(
-              File(status.path),
-            ),
-            fit: BoxFit.cover,
           ),
-        ),
-        child: StatusAction(
-          status: status,
-          isStored: isStored,
+          child: StatusAction(
+            status: status,
+            isStored: isStored,
+          ),
         ),
       ),
     );

@@ -10,6 +10,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:snapkeep/src/core/commons/blocs/theme/theme_bloc.dart' as _i349;
 import 'package:snapkeep/src/whatsapp/data/repositories/status_repository_implementation.dart'
     as _i747;
 import 'package:snapkeep/src/whatsapp/domain/repositories/status_repository.dart'
@@ -32,6 +33,7 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    gh.lazySingleton<_i349.ThemeBloc>(() => _i349.ThemeBloc());
     gh.lazySingleton<_i335.StatusCubit>(() => _i335.StatusCubit());
     gh.lazySingleton<_i206.StatusRepository>(
         () => _i747.StatusRepositoryImplementation());

@@ -16,9 +16,11 @@ class ImageViewerPage extends StatefulWidget {
   const ImageViewerPage({
     super.key,
     required this.status,
+    this.isStored = false,
   });
 
   final Status status;
+  final bool isStored;
 
   @override
   State<ImageViewerPage> createState() => _ImageViewerPageState();
@@ -150,8 +152,13 @@ class _ImageViewerPageState extends State<ImageViewerPage> {
         },
         child: InteractiveViewer(
           child: Center(
-            child: Image.file(
-              File(widget.status.path),
+            child: Hero(
+              tag: widget.isStored
+                  ? 'saved-${widget.status.path}'
+                  : widget.status.path,
+              child: Image.file(
+                File(widget.status.path),
+              ),
             ),
           ),
         ),
