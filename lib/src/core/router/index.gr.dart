@@ -81,6 +81,25 @@ class ImagesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [LightingModePage]
+class LightingModeRoute extends PageRouteInfo<void> {
+  const LightingModeRoute({List<PageRouteInfo>? children})
+      : super(
+          LightingModeRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LightingModeRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const LightingModePage();
+    },
+  );
+}
+
+/// generated route for
 /// [SavedPage]
 class SavedRoute extends PageRouteInfo<void> {
   const SavedRoute({List<PageRouteInfo>? children})
@@ -95,6 +114,25 @@ class SavedRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SavedPage();
+    },
+  );
+}
+
+/// generated route for
+/// [SettingPage]
+class SettingRoute extends PageRouteInfo<void> {
+  const SettingRoute({List<PageRouteInfo>? children})
+      : super(
+          SettingRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SettingRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const SettingPage();
     },
   );
 }

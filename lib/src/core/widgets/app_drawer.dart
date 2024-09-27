@@ -54,12 +54,15 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 16.sp),
             ),
             onTap: () {
+              ScaffoldMessenger.of(context).clearSnackBars();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Colors.lightBlue,
                   content: Text(
                     'Coming soon...!',
-                    style: TextStyle(fontSize: 14.sp),
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                    ),
                   ),
                 ),
               );
@@ -76,12 +79,15 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 16.sp),
             ),
             onTap: () {
+              ScaffoldMessenger.of(context).clearSnackBars();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Colors.lightBlue,
                   content: Text(
                     'Coming soon...!',
-                    style: TextStyle(fontSize: 14.sp),
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                    ),
                   ),
                 ),
               );
@@ -98,12 +104,15 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 16.sp),
             ),
             onTap: () {
+              ScaffoldMessenger.of(context).clearSnackBars();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Colors.lightBlue,
                   content: Text(
                     'Coming soon...!',
-                    style: TextStyle(fontSize: 14.sp),
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                    ),
                   ),
                 ),
               );
@@ -120,12 +129,15 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 16.sp),
             ),
             onTap: () {
+              ScaffoldMessenger.of(context).clearSnackBars();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Colors.lightBlue,
                   content: Text(
                     'Coming soon...!',
-                    style: TextStyle(fontSize: 14.sp),
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                    ),
                   ),
                 ),
               );
@@ -142,16 +154,7 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 16.sp),
             ),
             onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  backgroundColor: Colors.lightBlue,
-                  content: Text(
-                    'Coming soon...!',
-                    style: TextStyle(fontSize: 14.sp),
-                  ),
-                ),
-              );
-              context.router.maybePop();
+              context.router.push(const SettingRoute());
             },
           ),
           ListTile(
@@ -164,12 +167,15 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 16.sp),
             ),
             onTap: () {
+              ScaffoldMessenger.of(context).clearSnackBars();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Colors.lightBlue,
                   content: Text(
                     'Coming soon...!',
-                    style: TextStyle(fontSize: 14.sp),
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                    ),
                   ),
                 ),
               );
@@ -186,12 +192,15 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 16.sp),
             ),
             onTap: () {
+              ScaffoldMessenger.of(context).clearSnackBars();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Colors.lightBlue,
                   content: Text(
                     'Coming soon...!',
-                    style: TextStyle(fontSize: 14.sp),
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                    ),
                   ),
                 ),
               );
