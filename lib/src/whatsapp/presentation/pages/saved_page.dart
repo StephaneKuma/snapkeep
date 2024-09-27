@@ -55,7 +55,7 @@ class SavedPage extends StatelessWidget {
                 children: <Widget>[
                   Image.asset('assets/images/errors/empty.png'),
                   const Text(
-                    'No videos found',
+                    'No saved statuses found',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w300,

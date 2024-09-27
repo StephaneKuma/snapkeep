@@ -80,13 +80,12 @@ class StatusCubit extends Cubit<StatusState> {
     return thumbnailPath ?? '';
   }
 
-  void destroy({required String fileName}) async {
+  void destroy({required String path}) async {
     try {
-      final Directory externalDirectory = Directory(kStoredWhatsAppPath);
-      final File fileToDelete = File('${externalDirectory.path}/$fileName');
+      final File fileToDelete = File(path);
 
       if (await fileToDelete.exists()) {
-        await fileToDelete.delete();
+        await fileToDelete.delete(recursive: true);
         emit(const StatusActionSuccess(success: true));
       } else {
         emit(

@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:snapkeep/src/core/constants/colors.dart';
 import 'package:snapkeep/src/whatsapp/domain/entities/status.dart';
+import 'package:snapkeep/src/whatsapp/presentation/bloc/status_bloc.dart';
 import 'package:snapkeep/src/whatsapp/presentation/cubit/status_cubit.dart';
 
 class StatusAction extends StatelessWidget {
@@ -35,51 +36,57 @@ class StatusAction extends StatelessWidget {
                 bottomRight: Radius.circular(8),
               ),
             ),
-            child: isStored
-                ? IconButton(
-                    onPressed: () {
-                      cubit.share(status: status);
-                    },
-                    icon: const FaIcon(
-                      FontAwesomeIcons.shareFromSquare,
-                      color: kWhiteColor,
-                    ),
-                  )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      IconButton(
-                        onPressed: () {
-                          cubit.store(status: status);
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                IconButton(
+                  onPressed: () {
+                    String message = '';
 
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              backgroundColor: kPrimaryColor,
-                              content: Text(
-                                'Image saved',
-                                style: TextStyle(
-                                  color: kWhiteColor,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                        icon: const FaIcon(
-                          FontAwesomeIcons.download,
-                          color: kWhiteColor,
+                    if (!status.isVideo) {
+                      message = isStored ? 'Image deleted' : 'Image saved';
+                    } else {
+                      message = isStored ? 'Video deleted' : 'Video saved';
+                    }
+
+                    if (isStored) {
+                      cubit.destroy(path: status.path);
+
+                      context.read<StatusBloc>().add(FetchStoredStatuses());
+                    } else {
+                      cubit.store(status: status);
+                    }
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: isStored ? Colors.red : kPrimaryColor,
+                        content: Text(
+                          message,
+                          style: const TextStyle(
+                            color: kWhiteColor,
+                          ),
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {
-                          cubit.share(status: status);
-                        },
-                        icon: const FaIcon(
-                          FontAwesomeIcons.shareFromSquare,
-                          color: kWhiteColor,
-                        ),
-                      ),
-                    ],
+                    );
+                  },
+                  icon: FaIcon(
+                    isStored
+                        ? FontAwesomeIcons.trash
+                        : FontAwesomeIcons.download,
+                    color: kWhiteColor,
                   ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    cubit.share(status: status);
+                  },
+                  icon: const FaIcon(
+                    FontAwesomeIcons.shareFromSquare,
+                    color: kWhiteColor,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],

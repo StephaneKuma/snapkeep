@@ -37,7 +37,7 @@ class _VideoViewerPageState extends State<VideoViewerPage> {
         const SnackBar(
           backgroundColor: kDarkColor,
           content: Text(
-            'Pinch to zoom\nDouble tap to save or share',
+            'Double tap to save or share',
             style: TextStyle(
               color: kWhiteColor,
               fontWeight: FontWeight.bold,
@@ -54,7 +54,6 @@ class _VideoViewerPageState extends State<VideoViewerPage> {
       autoInitialize: true,
       autoPlay: true,
       looping: true,
-      // aspectRatio: 5 / 6,
       errorBuilder: (context, errorMessage) => Center(
         child: Text(errorMessage),
       ),
