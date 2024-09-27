@@ -5,8 +5,9 @@ import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:snapkeep/src/core/constants/paths.dart';
 
+import 'package:snapkeep/src/core/constants/paths.dart';
+import 'package:snapkeep/src/core/services/thumbnail/video_thumbnail.dart';
 import 'package:snapkeep/src/whatsapp/domain/entities/status.dart';
 
 part 'status_state.dart';
@@ -21,7 +22,7 @@ class StatusCubit extends Cubit<StatusState> {
           await Permission.storage.request();
 
       if (permissionStatus.isGranted) {
-        final Directory directory = Directory(kAppFolderPath);
+        final Directory directory = Directory(kStoredWhatsAppPath);
 
         if (!(await directory.exists())) {
           await directory.create(recursive: true);
@@ -38,13 +39,13 @@ class StatusCubit extends Cubit<StatusState> {
           emit(const StatusActionSuccess(success: true));
         } else {
           emit(
-            const StatusActionFailure(message: 'Fichier source non trouvé.'),
+            const StatusActionFailure(message: 'Source file not found.'),
           );
         }
       }
 
       emit(
-        const StatusActionFailure(message: 'Permission d\'écriture refusée.'),
+        const StatusActionFailure(message: 'Write permission denied.'),
       );
     } catch (e) {
       emit(
@@ -61,7 +62,7 @@ class StatusCubit extends Cubit<StatusState> {
         await Share.shareXFiles([XFile(file.path)]);
       } else {
         emit(
-          const StatusActionFailure(message: 'Fichier source non trouvé.'),
+          const StatusActionFailure(message: 'Source file not found.'),
         );
       }
     } catch (e) {
@@ -71,9 +72,17 @@ class StatusCubit extends Cubit<StatusState> {
     }
   }
 
+  Future<String> thumbnail({required String path}) async {
+    String? thumbnailPath = await VideoThumbnail.videoThumbnailPath(
+      videoPath: path,
+    );
+
+    return thumbnailPath ?? '';
+  }
+
   void destroy({required String fileName}) async {
     try {
-      final Directory externalDirectory = Directory(kAppFolderPath);
+      final Directory externalDirectory = Directory(kStoredWhatsAppPath);
       final File fileToDelete = File('${externalDirectory.path}/$fileName');
 
       if (await fileToDelete.exists()) {
@@ -81,7 +90,7 @@ class StatusCubit extends Cubit<StatusState> {
         emit(const StatusActionSuccess(success: true));
       } else {
         emit(
-          const StatusActionFailure(message: 'Fichier source non trouvé.'),
+          const StatusActionFailure(message: 'Source file not found.'),
         );
       }
     } catch (e) {

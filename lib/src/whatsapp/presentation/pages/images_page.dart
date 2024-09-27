@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:snapkeep/src/core/widgets/loader.dart';
 import 'package:snapkeep/src/whatsapp/presentation/bloc/status_bloc.dart';
-import 'package:snapkeep/src/whatsapp/presentation/widgets/image_item.dart';
+import 'package:snapkeep/src/whatsapp/presentation/widgets/status_image.dart';
 
 @RoutePage()
 class ImagesPage extends StatelessWidget {
@@ -48,10 +48,10 @@ class ImagesPage extends StatelessWidget {
               itemCount: state.statuses.length,
               itemBuilder: (context, index) {
                 final status = state.statuses[index];
-                return ImageItem(status: status);
+                return StatusImage(status: status);
               },
             );
-          } else {}
+          }
 
           return const Center(
             child: Text('No Data'),

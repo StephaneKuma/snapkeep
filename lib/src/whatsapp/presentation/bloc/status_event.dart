@@ -7,7 +7,14 @@ sealed class StatusEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class FetchStatus extends StatusEvent {}
+final class FetchStatuses extends StatusEvent {
+  final bool isVideo;
+
+  const FetchStatuses({required this.isVideo});
+
+  @override
+  List<Object> get props => [isVideo];
+}
 
 final class StoreStatusVideos extends StatusEvent {
   final String path;
@@ -17,6 +24,8 @@ final class StoreStatusVideos extends StatusEvent {
   @override
   List<Object> get props => [path];
 }
+
+final class FetchStoredStatuses extends StatusEvent {}
 
 final class DestroyStatusVideos extends StatusEvent {
   final String path;

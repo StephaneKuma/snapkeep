@@ -1,39 +1,62 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
+
+import 'package:snapkeep/src/core/constants/paths.dart';
 import 'package:snapkeep/src/core/errors/failure.dart';
 import 'package:snapkeep/src/whatsapp/domain/entities/status.dart';
-import 'package:snapkeep/src/whatsapp/domain/usecases/destroy_status.dart';
-import 'package:snapkeep/src/whatsapp/domain/usecases/load_status_images.dart';
-import 'package:snapkeep/src/whatsapp/domain/usecases/load_status_videos.dart';
-import 'package:snapkeep/src/whatsapp/domain/usecases/store_status.dart';
+import 'package:snapkeep/src/whatsapp/domain/usecases/load_statuses.dart';
 
 part 'status_event.dart';
 part 'status_state.dart';
 
 @lazySingleton
 final class StatusBloc extends Bloc<StatusEvent, StatusState> {
-  final LoadStatusImages _loadStatusImages;
-  final LoadStatusVideos _loadStatusVideos;
+  final LoadStatuses _loadStatuses;
 
   StatusBloc({
-    required LoadStatusImages loadStatusImages,
-    required LoadStatusVideos loadStatusVideos,
-    required StoreStatus storeStatus,
-    required DestroyStatus destroyStatus,
-  })  : _loadStatusImages = loadStatusImages,
-        _loadStatusVideos = loadStatusVideos,
+    required LoadStatuses loadStatuses,
+  })  : _loadStatuses = loadStatuses,
         super(StatusInitial()) {
     on<StatusEvent>((_, emit) => emit(LoadingStatus()));
 
-    on<FetchStatus>(_onLoadStatusImages);
+    on<FetchStatuses>(_onLoadStatuses);
+    on<FetchStoredStatuses>(_onLoadStoredStatuses);
   }
 
-  void _onLoadStatusImages(
-    FetchStatus event,
+  void _onLoadStatuses(
+    FetchStatuses event,
     Emitter<StatusState> emit,
   ) async {
-    final result = await _loadStatusImages.call();
+    final result = await _loadStatuses.call(
+      param: LoadStatusParam(
+        path: kWhatsAppPath,
+        isVideo: event.isVideo,
+      ),
+    );
+
+    result.fold(
+      (Failure failure) => emit(
+        StatusLoadFailure(message: failure.message),
+      ),
+      (List<Status> statuses) => emit(
+        StatusLoaded(statuses: statuses),
+      ),
+    );
+  }
+
+  FutureOr<void> _onLoadStoredStatuses(
+    FetchStoredStatuses event,
+    Emitter<StatusState> emit,
+  ) async {
+    final result = await _loadStatuses.call(
+      param: LoadStatusParam(
+        path: kStoredWhatsAppPath,
+        stored: true,
+      ),
+    );
 
     result.fold(
       (Failure failure) => emit(

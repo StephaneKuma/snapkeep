@@ -14,14 +14,8 @@ import 'package:snapkeep/src/whatsapp/data/repositories/status_repository_implem
     as _i747;
 import 'package:snapkeep/src/whatsapp/domain/repositories/status_repository.dart'
     as _i206;
-import 'package:snapkeep/src/whatsapp/domain/usecases/destroy_status.dart'
-    as _i1045;
-import 'package:snapkeep/src/whatsapp/domain/usecases/load_status_images.dart'
-    as _i928;
-import 'package:snapkeep/src/whatsapp/domain/usecases/load_status_videos.dart'
-    as _i955;
-import 'package:snapkeep/src/whatsapp/domain/usecases/store_status.dart'
-    as _i516;
+import 'package:snapkeep/src/whatsapp/domain/usecases/load_statuses.dart'
+    as _i203;
 import 'package:snapkeep/src/whatsapp/presentation/bloc/status_bloc.dart'
     as _i194;
 import 'package:snapkeep/src/whatsapp/presentation/cubit/status_cubit.dart'
@@ -41,20 +35,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i335.StatusCubit>(() => _i335.StatusCubit());
     gh.lazySingleton<_i206.StatusRepository>(
         () => _i747.StatusRepositoryImplementation());
-    gh.lazySingleton<_i1045.DestroyStatus>(
-        () => _i1045.DestroyStatus(repository: gh<_i206.StatusRepository>()));
-    gh.lazySingleton<_i928.LoadStatusImages>(
-        () => _i928.LoadStatusImages(repository: gh<_i206.StatusRepository>()));
-    gh.lazySingleton<_i955.LoadStatusVideos>(
-        () => _i955.LoadStatusVideos(repository: gh<_i206.StatusRepository>()));
-    gh.lazySingleton<_i516.StoreStatus>(
-        () => _i516.StoreStatus(repository: gh<_i206.StatusRepository>()));
-    gh.lazySingleton<_i194.StatusBloc>(() => _i194.StatusBloc(
-          loadStatusImages: gh<_i928.LoadStatusImages>(),
-          loadStatusVideos: gh<_i955.LoadStatusVideos>(),
-          storeStatus: gh<_i516.StoreStatus>(),
-          destroyStatus: gh<_i1045.DestroyStatus>(),
-        ));
+    gh.lazySingleton<_i203.LoadStatuses>(
+        () => _i203.LoadStatuses(repository: gh<_i206.StatusRepository>()));
+    gh.lazySingleton<_i194.StatusBloc>(
+        () => _i194.StatusBloc(loadStatuses: gh<_i203.LoadStatuses>()));
     return this;
   }
 }

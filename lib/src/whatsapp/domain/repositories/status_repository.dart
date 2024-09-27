@@ -2,11 +2,11 @@ import 'package:snapkeep/src/core/types/index.dart';
 import 'package:snapkeep/src/whatsapp/domain/entities/status.dart';
 
 abstract class StatusRepository {
-  FutureResult<List<Status>> images();
+  FutureResult<List<Status>> statuses({
+    required String path,
+    bool stored = false,
+    bool isVideo = false,
+  });
 
-  FutureResult<List<Status>> videos();
-
-  FutureResult<bool> store({required String path});
-
-  FutureResult<bool> destroy({required String path});
+  FutureResult<List<Status>> storedStatuses({required String path});
 }

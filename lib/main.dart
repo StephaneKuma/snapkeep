@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => locator<StatusBloc>()..add(FetchStatus()),
+          create: (_) => locator<StatusBloc>(),
         ),
         BlocProvider(
           create: (_) => locator<StatusCubit>(),
