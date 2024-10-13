@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:snapkeep/src/core/constants/colors.dart';
 
 import 'package:snapkeep/src/core/router/index.dart';
 
@@ -16,6 +17,7 @@ class AppDrawer extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           UserAccountsDrawerHeader(
+            decoration: const BoxDecoration(color: kPrimaryColor),
             accountName: Text(
               'Snap Keep',
               style: TextStyle(fontSize: 16.sp),
